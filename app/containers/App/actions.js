@@ -14,8 +14,15 @@
  *        return { type: YOUR_ACTION_CONSTANT, var: var }
  *    }
  */
-
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from './constants';
+import {
+  LOAD_REPOS,
+  LOAD_REPOS_SUCCESS,
+  LOAD_REPOS_ERROR,
+  LOAD_USERS,
+} from './constants';
+export function loadUsers() {
+  return { tyoe: LOAD_USERS };
+}
 
 /**
  * Load the repositories, this action starts the request saga

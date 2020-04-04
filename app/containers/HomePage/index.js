@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -20,7 +20,13 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
+import Header from 'components/Header';
 import ReposList from 'components/ReposList';
+import Widget1 from 'components/Widget1';
+import Widget2 from 'components/Widget2';
+import Widget3 from 'components/Widget3';
+import Widget4 from 'components/Widget4';
+import Widget5 from 'components/Widget5';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
@@ -32,6 +38,7 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import Row from '../../components/Row';
 
 const key = 'home';
 
@@ -45,10 +52,14 @@ export function HomePage({
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
-    // When initial state username is not null, submit the form to load repos
-    if (username && username.trim().length > 0) onSubmitForm();
+    (async () => {
+      const req = await fetch('https://swapi.co/api/people/');
+      const res = await req.json();
+      setUser(res);
+    })();
   }, []);
 
   const reposListProps = {
@@ -58,46 +69,20 @@ export function HomePage({
   };
 
   return (
-    <article>
-      <Helmet>
-        <title>Home Page</title>
-        <meta
-          name="description"
-          content="A React.js Boilerplate application homepage"
-        />
-      </Helmet>
-      <div>
-        <CenteredSection>
-          <H2>
-            <FormattedMessage {...messages.startProjectHeader} />
-          </H2>
-          <p>
-            <FormattedMessage {...messages.startProjectMessage} />
-          </p>
-        </CenteredSection>
-        <Section>
-          <H2>
-            <FormattedMessage {...messages.trymeHeader} />
-          </H2>
-          <Form onSubmit={onSubmitForm}>
-            <label htmlFor="username">
-              <FormattedMessage {...messages.trymeMessage} />
-              <AtPrefix>
-                <FormattedMessage {...messages.trymeAtPrefix} />
-              </AtPrefix>
-              <Input
-                id="username"
-                type="text"
-                placeholder="mxstbr"
-                value={username}
-                onChange={onChangeUsername}
-              />
-            </label>
-          </Form>
-          <ReposList {...reposListProps} />
-        </Section>
-      </div>
-    </article>
+    <>
+      <p className="m-0">Codemi Home</p>
+      <Row>
+        <Widget1 />
+        <Widget2 activeUsers={user.count} />
+      </Row>
+      <Row>
+        <Widget3 />
+        <Widget4 users={user.results} />
+      </Row>
+      <Row>
+        <Widget5 />
+      </Row>
+    </>
   );
 }
 

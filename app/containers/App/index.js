@@ -15,16 +15,15 @@ import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
+import SideBar from 'components/Sidebar';
+import Main from 'components/Main';
+import Container from 'components/Container';
 import Footer from 'components/Footer';
 
 import GlobalStyle from '../../global-styles';
 
 const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
   display: flex;
-  min-height: 100%;
-  padding: 0 16px;
   flex-direction: column;
 `;
 
@@ -32,18 +31,22 @@ export default function App() {
   return (
     <AppWrapper>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate="%s - Fergus Hagaswara"
+        defaultTitle="Codemi Test Case"
       >
-        <meta name="description" content="A React.js Boilerplate application" />
+        <meta name="description" content="A Codemi Test Case application" />
       </Helmet>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-      <Footer />
+      <Header notificationCount="18" />
+      <Main>
+        <SideBar />
+        <Container>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/features" component={FeaturePage} />
+            <Route path="" component={NotFoundPage} />
+          </Switch>
+        </Container>
+      </Main>
       <GlobalStyle />
     </AppWrapper>
   );
