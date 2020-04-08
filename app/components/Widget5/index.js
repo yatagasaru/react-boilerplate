@@ -20,7 +20,6 @@ function Widget5() {
 
   const blueData = [{x: '08 Mar', y: 25000}, {x: '09', y: 20000}, {x: '10', y: 18000}, {x: '11', y: 15000}, {x: '12', y: 10000}, {x: '13', y: 5000}, {x: '14', y: 0}];
 
-  ];
   return(
     <WidgetContainer width="100%">
       <p>How's your social learning activity?</p>

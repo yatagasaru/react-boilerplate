@@ -27,7 +27,7 @@ function Widget4(props) {
                     <Td align="right">{data.mass}</Td>
                   </Tr>
                 )) :
-              : null}
+              null}
           </tbody>
         </table>
         <ListHeader borderless>
